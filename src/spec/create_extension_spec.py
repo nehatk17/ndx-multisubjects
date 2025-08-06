@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+from pathlib import Path
+
+from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttributeSpec
+
+# TODO: import other spec classes as needed
+# from pynwb.spec import NWBDatasetSpec, NWBLinkSpec, NWBDtypeSpec, NWBRefSpec
+
+
+def main():
+    # these arguments were auto-generated from your cookiecutter inputs
+    ns_builder = NWBNamespaceBuilder(
+        name="""ndx-multisubjects""",
+        version="""0.1.0""",
+        doc="""Allow for multiple subjects to be represented in a single nwb file. This is for experiments where subjects are being recorded at the same time in the same session.""",
+        author=[
+            "Neha Thomas",
+            "Ryan Ly",
+            "Oliver Ruebel",
+        ],
+        contact=[
+            "neha.thomas@jhuapl.edu",
+            "",
+        ],
+    )
+    ns_builder.include_namespace("core")
+    
+    # TODO: if your extension builds on another extension, include the namespace
+    # of the other extension below
+    # ns_builder.include_namespace("ndx-other-extension")
+
+    # TODO: define your new data types
+    # see https://pynwb.readthedocs.io/en/stable/tutorials/general/extensions.html
+    # for more information
+    tetrode_series = NWBGroupSpec(
+        neurodata_type_def="TetrodeSeries",
+        neurodata_type_inc="ElectricalSeries",
+        doc="An extension of ElectricalSeries to include the tetrode ID for each time series.",
+        attributes=[NWBAttributeSpec(name="trode_id", doc="The tetrode ID.", dtype="int32")],
+    )
+
+    # TODO: add all of your new data types to this list
+    new_data_types = [tetrode_series]
+
+    # export the spec to yaml files in the root spec folder
+    output_dir = str((Path(__file__).parent.parent.parent / "spec").absolute())
+    export_spec(ns_builder, new_data_types, output_dir)
+
+
+if __name__ == "__main__":
+    # usage: python create_extension_spec.py
+    main()

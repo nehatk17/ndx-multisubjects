@@ -1,0 +1,17 @@
+name: Ruff
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ruff:
+    name: Check for style errors and common problems
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Ruff
+        uses: astral-sh/ruff-action@v3
