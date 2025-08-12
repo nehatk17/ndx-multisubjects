@@ -1,8 +1,90 @@
 groups:
-- neurodata_type_def: TetrodeSeries
-  neurodata_type_inc: ElectricalSeries
-  doc: An extension of ElectricalSeries to include the tetrode ID for each time series.
-  attributes:
-  - name: trode_id
-    dtype: int32
-    doc: The tetrode ID.
+- neurodata_type_def: SubjectsTable
+  neurodata_type_inc: DynamicTable
+  name: SubjectsTable
+  doc: An extension of DynamicTable to create a subjects table with relevant metadata.
+  datasets:
+  - name: age
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Age of subject. Can be supplied instead of date_of_birth. Must be in ISO
+      8601 format, e.g., P70D for 70 days or if it is a range, must be [lower]/[upper],
+      e.g., P10W/P12W which means between 10 and 12 weeks.
+    quantity: '?'
+    attributes:
+    - name: reference
+      dtype: text
+      default_value: birth
+      doc: Age is with reference to this event. Can be birth or gestational. If reference
+        is omitted, birth is implied.
+      required: false
+  - name: date_of_birth
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Date of birth of subject. Can be supplied instead of age.
+    quantity: '?'
+  - name: subject_description
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Description of subject and where subject came from (e.g., breeder, if animal).
+    quantity: '?'
+  - name: genotype
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Genetic strain. If absent, assume wild type (WT).
+    quantity: '?'
+  - name: sex
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Gender of subject. Must be M, F, O (other), or U (unknown).
+  - name: species
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Species of subject. Can be Latin binomial e.g., Mus musculus or NCBI taxonomic
+      identifier.
+  - name: strain
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Strain of subject.
+    quantity: '?'
+  - name: subject_id
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: ID of animal/person used/participating in experiment (lab convention).
+  - name: weight
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Weight at time of experiment, at time of surgery and at other important times.
+    quantity: '?'
+  - name: individual_subj_link
+    neurodata_type_inc: VectorData
+    dtype: text
+    doc: Link to individual subject nwb file, if any. Should be relative file paths
+      or URI.
+    quantity: '?'
+- neurodata_type_def: NdxMultiSubjectsNWBFile
+  neurodata_type_inc: NWBFile
+  doc: An extension to the NWBFile to store multiple subjects data. After integration
+    of ndx-multisubjects with the core schema, the NWBFile schema should be updated
+    to this type.
+- neurodata_type_def: SelectSubjectsContainer
+  neurodata_type_inc: NWBDataInterface
+  doc: A container to hold data from a selection of subjects from the SubjectsTable.
+  datasets:
+  - name: subjects
+    neurodata_type_inc: DynamicTableRegion
+    doc: A DynamicTableRegion that selects the subjects from the SubjectsTable that
+      are included in this container.
+    attributes:
+    - name: table
+      dtype:
+        target_type: SubjectsTable
+        reftype: object
+      doc: The table that this region selects from.
+  groups:
+  - neurodata_type_inc: NWBDataInterface
+    doc: Data objects recorded from the selected subjects
+    quantity: '*'
+  - neurodata_type_inc: DynamicTable
+    doc: Data tables recorded from the selected subjects
+    quantity: '*'
