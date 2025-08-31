@@ -5,8 +5,8 @@ TODO: Modify these tests to test your extension neurodata type.
 
 import numpy as np
 
-from pynwb import NWBHDF5IO, NWBFile, TimeSeries
-from pynwb.testing import TestCase, remove_test_file, NWBH5IOFlexMixin
+from pynwb import NWBHDF5IO, TimeSeries
+from pynwb.testing import TestCase, remove_test_file
 from hdmf.common import DynamicTableRegion
 
 from ndx_multisubjects import SubjectsTable, NdxMultiSubjectsNWBFile, SelectSubjectsContainer
@@ -146,7 +146,7 @@ class TestSubjectsTableSimpleRoundtrip(TestCase):
 
         with NWBHDF5IO(self.path, mode="r", load_namespaces=True) as io:
             read_nwbfile = io.read()
-            print(read_nwbfile)
+            #print(read_nwbfile)
             self.assertContainerEqual(subjects_table, read_nwbfile.acquisition['SubjectsTable'])
             # self.assertEqual(len(subjects_table), read_nwbfile.acquisition['SubjectsTable'])
             # self.assertEqual(subjects_table['age'][0], "P70D")
@@ -219,7 +219,8 @@ class TestSelectSubjectsContainer(TestCase):
     
         subjects = DynamicTableRegion(
             name="subjects",
-            description="A DynamicTableRegion that selects the subjects from the SubjectsTable that are included in this container.",
+            description="A DynamicTableRegion that selects the subjects from the " \
+            "SubjectsTable that are included in this container.",
             table=subjects_table,
             data=[0, 1]  # Select both subjects
         )
@@ -308,7 +309,8 @@ class TestSelectSubjectsContainerSimpleRoundtrip(TestCase):
 
         subjects = DynamicTableRegion(
             name="subjects",
-            description="A DynamicTableRegion that selects the subjects from the SubjectsTable that are included in this container.",
+            description="A DynamicTableRegion that selects the subjects from the SubjectsTable " \
+            "that are included in this container.",
             table=subjects_table,
             data=[0, 1]  # Select both subjects
         )
@@ -344,5 +346,5 @@ class TestSelectSubjectsContainerSimpleRoundtrip(TestCase):
 
         with NWBHDF5IO(self.path, mode="r", load_namespaces=True) as io:
             read_nwbfile = io.read()
-            print(read_nwbfile)
+            #print(read_nwbfile)
             self.assertContainerEqual(subjects_container, read_nwbfile.processing['Behavior']['Interaction Subjects'])

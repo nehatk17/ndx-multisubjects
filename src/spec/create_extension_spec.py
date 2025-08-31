@@ -12,7 +12,8 @@ def main():
     ns_builder = NWBNamespaceBuilder(
         name="""ndx-multisubjects""",
         version="""0.1.0""",
-        doc="""Allow for multiple subjects to be represented in a single nwb file. This is for experiments where subjects are being recorded at the same time in the same session.""",
+        doc="""Allow for multiple subjects to be represented in a single nwb file. 
+        This is for experiments where subjects are being recorded at the same time in the same session.""",
         author=[
             "Neha Thomas",
             "Ryan Ly",
@@ -37,7 +38,11 @@ def main():
         neurodata_type_def="SubjectsTable",
         neurodata_type_inc="DynamicTable",
         doc="An extension of DynamicTable to create a subjects table with relevant metadata.",
-        datasets = [NWBDatasetSpec(name = 'age', neurodata_type_inc = 'VectorData', dtype ='text', doc = 'Age of subject. Can be supplied instead of date_of_birth. Must be in ISO 8601 format, e.g., P70D for 70 days or if it is a range, must be [lower]/[upper], e.g., P10W/P12W which means between 10 and 12 weeks.', quantity= '?', attributes = [NWBAttributeSpec(name = 'reference', doc = 'Age is with reference to this event. Can be birth or gestational. If reference is omitted, birth is implied.', dtype = 'text', required = False, default_value = 'birth')]),
+        datasets = [NWBDatasetSpec(name = 'age', neurodata_type_inc = 'VectorData', dtype ='text',
+                                    doc = 'Age of subject. Can be supplied instead of date_of_birth. Must be in ISO 8601 format, e.g., P70D for 70 days or if it is a range, must be [lower]/[upper], e.g., P10W/P12W which means between 10 and 12 weeks.', 
+                                    quantity= '?', attributes = [NWBAttributeSpec(name = 'reference', doc = 'Age is with reference to this event. ' \
+                                    'Can be birth or gestational. If reference is omitted, birth is implied.',
+                                                                                   dtype = 'text', required = False, default_value = 'birth')]),
                     NWBDatasetSpec(name = 'date_of_birth', neurodata_type_inc = 'VectorData', dtype ='text', doc = 'Date of birth of subject. Can be supplied instead of age.', quantity= '?'),
                     NWBDatasetSpec(name = 'subject_description', neurodata_type_inc = 'VectorData', dtype ='text', doc = 'Description of subject and where subject came from (e.g., breeder, if animal).', quantity= '?'),
                     NWBDatasetSpec(name = 'genotype', neurodata_type_inc = 'VectorData', dtype ='text', doc = 'Genetic strain. If absent, assume wild type (WT).', quantity= '?'),

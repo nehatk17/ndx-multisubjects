@@ -27,7 +27,7 @@ __all__ = [
 ]
 
 
-from .ndx_multisubjects_nwb_file_io import NdxMultiSubjectsNWBFileMap
+#from .ndx_multisubjects_nwb_file_io import NdxMultiSubjectsNWBFileMap
 
 # Remove these functions/modules from the package
 del load_namespaces, get_class, files, __location_of_this_file, __spec_path
