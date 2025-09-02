@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 
-from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec, NWBAttributeSpec, NWBDatasetSpec, NWBRefSpec
+from pynwb.spec import NWBAttributeSpec, NWBDatasetSpec, NWBGroupSpec, NWBNamespaceBuilder, NWBRefSpec, export_spec
 
 # TODO: import other spec classes as needed
 # from pynwb.spec import NWBDatasetSpec, NWBLinkSpec, NWBDtypeSpec, NWBRefSpec
@@ -121,7 +121,8 @@ def main():
         neurodata_type_def="NdxMultiSubjectsNWBFile",
         neurodata_type_inc="NWBFile",
         doc=(
-            "An extension to the NWBFile to store multiple subjects data. After integration of ndx-multisubjects with the core schema, "
+            "An extension to the NWBFile to store multiple subjects data. "
+            "After integration of ndx-multisubjects with the core schema, "
             "the NWBFile schema should be updated to this type."
         ),
         # groups=[
@@ -158,7 +159,8 @@ def main():
             NWBDatasetSpec(
                 name="subjects",
                 neurodata_type_inc="DynamicTableRegion",
-                doc="A DynamicTableRegion that selects the subjects from the SubjectsTable that are included in this container.",
+                doc="A DynamicTableRegion that selects the subjects from the SubjectsTable "
+                "that are included in this container.",
                 attributes=[
                     NWBAttributeSpec(
                         name="table",
