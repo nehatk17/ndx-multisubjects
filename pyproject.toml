@@ -64,13 +64,12 @@ min-reqs = [
     "hdmf==3.14.1",
 ]
 
-# TODO: add URLs before release
-# [project.urls]
-# "Homepage" = "https://github.com/organization/package"
+[project.urls]
+"Homepage" = "https://github.com/nehatk17/ndx-multisubjects"
 # "Documentation" = "https://package.readthedocs.io/"
-# "Bug Tracker" = "https://github.com/organization/package/issues"
+"Bug Tracker" = "https://github.com/nehatk17/ndx-multisubjects/issues"
 # "Discussions" = "https://github.com/organization/package/discussions"
-# "Changelog" = "https://github.com/organization/package/blob/main/CHANGELOG.md"
+"Changelog" = "https://github.com/nehatk17/ndx-multisubjects/blob/main/CHANGELOG.md"
 
 # Include only the source code under `src/pynwb/ndx_multisubjects` and the spec files under `spec`
 # in the wheel.
