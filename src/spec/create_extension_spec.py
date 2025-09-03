@@ -3,12 +3,8 @@ from pathlib import Path
 
 from pynwb.spec import NWBAttributeSpec, NWBDatasetSpec, NWBGroupSpec, NWBNamespaceBuilder, NWBRefSpec, export_spec
 
-# TODO: import other spec classes as needed
-# from pynwb.spec import NWBDatasetSpec, NWBLinkSpec, NWBDtypeSpec, NWBRefSpec
-
 
 def main():
-    # these arguments were auto-generated from your cookiecutter inputs
     ns_builder = NWBNamespaceBuilder(
         name="""ndx-multisubjects""",
         version="""0.1.0""",
@@ -29,14 +25,7 @@ def main():
     )
     ns_builder.include_namespace("core")
 
-    # TODO: if your extension builds on another extension, include the namespace
-    # of the other extension below
-    # ns_builder.include_namespace("ndx-other-extension")
-
-    # TODO: define your new data types
-    # see https://pynwb.readthedocs.io/en/stable/tutorials/general/extensions.html
-    # for more information
-    SubjectsTable = NWBGroupSpec(
+    subjects_table_spec = NWBGroupSpec(
         name="SubjectsTable",
         neurodata_type_def="SubjectsTable",
         neurodata_type_inc="DynamicTable",
@@ -64,7 +53,7 @@ def main():
             NWBDatasetSpec(
                 name="date_of_birth",
                 neurodata_type_inc="VectorData",
-                dtype="text",
+                dtype="text",  # TODO: update to datetime
                 doc="Date of birth of subject. Can be supplied instead of age.",
                 quantity="?",
             ),
@@ -95,7 +84,11 @@ def main():
                 doc="Species of subject. Can be Latin binomial e.g., Mus musculus or NCBI taxonomic identifier.",
             ),
             NWBDatasetSpec(
-                name="strain", neurodata_type_inc="VectorData", dtype="text", doc="Strain of subject.", quantity="?"
+                name="strain",
+                neurodata_type_inc="VectorData",
+                dtype="text",
+                doc="Strain of subject.",
+                quantity="?",
             ),
             NWBDatasetSpec(
                 name="subject_id",
@@ -120,7 +113,7 @@ def main():
         ],
     )
 
-    ndx_multisubjects_nwb_file = NWBGroupSpec(
+    ndx_multisubjects_nwbfile_spec = NWBGroupSpec(
         neurodata_type_def="NdxMultiSubjectsNWBFile",
         neurodata_type_inc="NWBFile",
         doc=(
@@ -137,14 +130,14 @@ def main():
         #                 neurodata_type_inc="SubjectsTable",
         #                 name = "SubjectsTable",
         #                 doc="Table to hold all metadata of subjects in an experiment.",
-        #                 quantity = '?'
+        #                 quantity = '?',
         #             ),
         #         ],
         #     ),
         # ],
     )
 
-    SelectSubjectsContainer = NWBGroupSpec(
+    select_subjects_container_spec = NWBGroupSpec(
         neurodata_type_def="SelectSubjectsContainer",
         neurodata_type_inc="NWBDataInterface",
         doc="A container to hold data from a selection of subjects from the SubjectsTable.",
@@ -155,7 +148,9 @@ def main():
                 quantity="*",
             ),
             NWBGroupSpec(
-                neurodata_type_inc="DynamicTable", doc="Data tables recorded from the selected subjects", quantity="*"
+                neurodata_type_inc="DynamicTable",
+                doc="Data tables recorded from the selected subjects",
+                quantity="*",
             ),
         ],
         datasets=[
@@ -176,8 +171,11 @@ def main():
         ],
     )
 
-    # TODO: add all of your new data types to this list
-    new_data_types = [SubjectsTable, ndx_multisubjects_nwb_file, SelectSubjectsContainer]
+    new_data_types = [
+        subjects_table_spec,
+        ndx_multisubjects_nwbfile_spec,
+        select_subjects_container_spec,
+    ]
 
     # export the spec to yaml files in the root spec folder
     output_dir = str((Path(__file__).parent.parent.parent / "spec").absolute())
