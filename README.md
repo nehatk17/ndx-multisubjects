@@ -110,22 +110,22 @@ subjects = DynamicTableRegion(
 # Create a SelectSubjectsContainer to hold data from the selected subjects and the DynamicTableRegion identifying
 # which subjects the data are from
 selected_subjects_container = SelectSubjectsContainer(
-    name='selected_subjects_container_subjects_001_and_003',
+    name="selected_subjects_container_subjects_001_and_003",
     subjects=subjects,
 )
 selected_subjects_container.add_nwb_data_interfaces(dummyTimeSeries)
 
 # Create a ProcessingModule to hold the SelectSubjectsContainer
 module = nwbfile.create_processing_module(
-    name='behavior',
-    description='Processing module for behavioral data'
+    name="behavior",
+    description="Processing module for behavioral data"
 )
 module.add(selected_subjects_container)
 
 print(nwbfile)
 
 # Write the NWB file to a file
-with NWBHDF5IO('test_multi_subjects.nwb', 'w') as io:
+with NWBHDF5IO("test_multi_subjects.nwb", "w") as io:
     io.write(nwbfile)
 ```
 
@@ -133,14 +133,14 @@ To access the data for the selected subjects from the written NWB file:
 
 ```python
 # Open the NWB file and read it
-io = NWBHDF5IO('test_multi_subjects.nwb', 'r')
+io = NWBHDF5IO("test_multi_subjects.nwb", "r")
 read_nwbfile = io.read()
 
 # Get the SubjectsTable in this NWB file
-read_subjects_table = read_nwbfile.get_acquisition('SubjectsTable')
+read_subjects_table = read_nwbfile.get_acquisition("SubjectsTable")
 
 # Get the SelectedSubjectsContainer
-read_selected_subjects_container = read_nwbfile.processing['behavior']['selected_subjects_container_subjects_001_and_003']
+read_selected_subjects_container = read_nwbfile.processing["behavior"]["selected_subjects_container_subjects_001_and_003"]
 
 # Get the TimeSeries from the SelectedSubjectsContainer by name
 read_time_series = read_selected_subjects_container.nwb_data_interfaces["interaction_subjects_001_and_003"]
