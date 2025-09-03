@@ -7,14 +7,13 @@ name = "ndx-multisubjects"
 version = "0.1.0"
 authors = [
     { name="Neha Thomas", email="neha.thomas@jhuapl.edu" },
-    { name="Ryan Ly", email="" },
+    { name="Ryan Ly", email="rly@lbl.gov" },
 ]
 description = "Allow for multiple subjects to be represented in a single nwb file. This is for experiments where subjects are being recorded at the same time in the same session."
 readme = "README.md"
 requires-python = ">=3.9"
 license = "BSD-3-Clause"
 classifiers = [
-    # TODO: update these classifiers before release
     "Programming Language :: Python",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
