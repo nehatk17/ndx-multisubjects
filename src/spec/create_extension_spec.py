@@ -12,8 +12,10 @@ def main():
     ns_builder = NWBNamespaceBuilder(
         name="""ndx-multisubjects""",
         version="""0.1.0""",
-        doc="""Allow for multiple subjects to be represented in a single nwb file. 
-        This is for experiments where subjects are being recorded at the same time in the same session.""",
+        doc=(
+            "Allow for multiple subjects to be represented in a single NWB file. "
+            "This is for experiments where subjects are being recorded at the same time in the same session."
+        ),
         author=[
             "Neha Thomas",
             "Ryan Ly",
@@ -21,7 +23,8 @@ def main():
         ],
         contact=[
             "neha.thomas@jhuapl.edu",
-            "",
+            "rly@lbl.gov",
+            "oruebel@lbl.gov",
         ],
     )
     ns_builder.include_namespace("core")
