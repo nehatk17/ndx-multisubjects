@@ -12,22 +12,17 @@ if not __spec_path.exists():
 # Load the namespace
 load_namespaces(str(__spec_path))
 
-# TODO: Define your classes here to make them accessible at the package level.
-# Either have PyNWB generate a class from the spec using `get_class` as shown
-# below or write a custom class and register it using the class decorator
-# `@register_class("TetrodeSeries", "ndx-multisubjects")`
 SubjectsTable = get_class("SubjectsTable", "ndx-multisubjects")
-
 NdxMultiSubjectsNWBFile = get_class("NdxMultiSubjectsNWBFile", "ndx-multisubjects")
-
 SelectSubjectsContainer = get_class("SelectSubjectsContainer", "ndx-multisubjects")
-# TODO: Add all classes to __all__ to make them accessible at the package level
+
 __all__ = [
-    "SubjectsTable","NdxMultiSubjectsNWBFile","SelectSubjectsContainer"
+    "SubjectsTable",
+    "NdxMultiSubjectsNWBFile",
+    "SelectSubjectsContainer",
 ]
 
-
-#from .ndx_multisubjects_nwb_file_io import NdxMultiSubjectsNWBFileMap
+# from .ndx_multisubjects_nwb_file_io import NdxMultiSubjectsNWBFileMap
 
 # Remove these functions/modules from the package
 del load_namespaces, get_class, files, __location_of_this_file, __spec_path
