@@ -7,7 +7,7 @@ from pynwb.spec import NWBAttributeSpec, NWBDatasetSpec, NWBGroupSpec, NWBNamesp
 def main():
     ns_builder = NWBNamespaceBuilder(
         name="""ndx-multisubjects""",
-        version="""0.1.0""",
+        version="""0.1.1""",
         doc=(
             "Allow for multiple subjects to be represented in a single NWB file. "
             "This is for experiments where subjects are being recorded at the same time in the same session."
@@ -121,20 +121,20 @@ def main():
             "After integration of ndx-multisubjects with the core schema, "
             "the NWBFile schema should be updated to this type."
         ),
-        # groups=[
-        #     NWBGroupSpec(
-        #         name="general",
-        #         doc="Experimental metadata...",
-        #         groups=[
-        #             NWBGroupSpec(
-        #                 neurodata_type_inc="SubjectsTable",
-        #                 name = "SubjectsTable",
-        #                 doc="Table to hold all metadata of subjects in an experiment.",
-        #                 quantity = '?',
-        #             ),
-        #         ],
-        #     ),
-        # ],
+        groups=[
+            NWBGroupSpec(
+                name="general",
+                doc="Experimental metadata...",
+                groups=[
+                    NWBGroupSpec(
+                        neurodata_type_inc="SubjectsTable",
+                        name="SubjectsTable",
+                        doc="Table to hold all metadata of subjects in an experiment.",
+                        quantity="?",
+                    ),
+                ],
+            ),
+        ],
     )
 
     select_subjects_container_spec = NWBGroupSpec(
