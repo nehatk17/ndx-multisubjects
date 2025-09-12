@@ -7,7 +7,7 @@ from pynwb.spec import NWBAttributeSpec, NWBDatasetSpec, NWBGroupSpec, NWBNamesp
 def main():
     ns_builder = NWBNamespaceBuilder(
         name="""ndx-multisubjects""",
-        version="""0.1.1""",
+        version="""0.1.0""",
         doc=(
             "Allow for multiple subjects to be represented in a single NWB file. "
             "This is for experiments where subjects are being recorded at the same time in the same session."
