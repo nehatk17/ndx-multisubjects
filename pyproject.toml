@@ -126,6 +126,7 @@ exclude = [
 line-length = 120
 
 [tool.ruff.lint.per-file-ignores]
+"src/pynwb/ndx_multisubjects/__init__.py" = ["E402"]
 "src/spec/create_extension_spec.py" = ["T201"]
 
 [tool.ruff.lint.mccabe]

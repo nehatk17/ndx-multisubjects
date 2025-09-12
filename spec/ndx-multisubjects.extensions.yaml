@@ -70,6 +70,14 @@ groups:
   doc: An extension to the NWBFile to store multiple subjects data. After 
     integration of ndx-multisubjects with the core schema, the NWBFile schema 
     should be updated to this type.
+  groups:
+  - name: general
+    doc: Experimental metadata...
+    groups:
+    - name: SubjectsTable
+      neurodata_type_inc: SubjectsTable
+      doc: Table to hold all metadata of subjects in an experiment.
+      quantity: '?'
 - neurodata_type_def: SelectSubjectsContainer
   neurodata_type_inc: NWBDataInterface
   doc: A container to hold data from a selection of subjects from the 

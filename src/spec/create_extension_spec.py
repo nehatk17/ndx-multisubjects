@@ -121,20 +121,20 @@ def main():
             "After integration of ndx-multisubjects with the core schema, "
             "the NWBFile schema should be updated to this type."
         ),
-        # groups=[
-        #     NWBGroupSpec(
-        #         name="general",
-        #         doc="Experimental metadata...",
-        #         groups=[
-        #             NWBGroupSpec(
-        #                 neurodata_type_inc="SubjectsTable",
-        #                 name = "SubjectsTable",
-        #                 doc="Table to hold all metadata of subjects in an experiment.",
-        #                 quantity = '?',
-        #             ),
-        #         ],
-        #     ),
-        # ],
+        groups=[
+            NWBGroupSpec(
+                name="general",
+                doc="Experimental metadata...",
+                groups=[
+                    NWBGroupSpec(
+                        neurodata_type_inc="SubjectsTable",
+                        name="SubjectsTable",
+                        doc="Table to hold all metadata of subjects in an experiment.",
+                        quantity="?",
+                    ),
+                ],
+            ),
+        ],
     )
 
     select_subjects_container_spec = NWBGroupSpec(

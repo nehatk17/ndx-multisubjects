@@ -1,5 +1,6 @@
 from importlib.resources import files
-from pynwb import load_namespaces, get_class
+
+from pynwb import get_class, load_namespaces
 
 # Get path to the namespace.yaml file with the expected location when installed not in editable mode
 __location_of_this_file = files(__name__)
@@ -12,17 +13,16 @@ if not __spec_path.exists():
 # Load the namespace
 load_namespaces(str(__spec_path))
 
-SubjectsTable = get_class("SubjectsTable", "ndx-multisubjects")
-NdxMultiSubjectsNWBFile = get_class("NdxMultiSubjectsNWBFile", "ndx-multisubjects")
-SelectSubjectsContainer = get_class("SelectSubjectsContainer", "ndx-multisubjects")
+from .ndx_multisubjects import NdxMultiSubjectsNWBFile, SelectSubjectsContainer, SubjectsTable
+from .ndx_multisubjects_nwb_file_io import NdxMultiSubjectsNWBFileMap
 
 __all__ = [
     "SubjectsTable",
     "NdxMultiSubjectsNWBFile",
     "SelectSubjectsContainer",
+    "NdxMultiSubjectsNWBFileMap",
 ]
 
-# from .ndx_multisubjects_nwb_file_io import NdxMultiSubjectsNWBFileMap
 
 # Remove these functions/modules from the package
 del load_namespaces, get_class, files, __location_of_this_file, __spec_path

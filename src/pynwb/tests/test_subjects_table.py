@@ -1,14 +1,14 @@
 """Unit and integration tests for the neurodata types in ndx-multisubjects."""
 
-import numpy as np
-from uuid import uuid4
 from datetime import datetime, timezone
+from uuid import uuid4
 
-from pynwb import NWBHDF5IO, TimeSeries
-from pynwb.testing import TestCase, remove_test_file
 from hdmf.common import DynamicTableRegion
+import numpy as np
+from pynwb.testing import TestCase, remove_test_file
+from pynwb import NWBHDF5IO, TimeSeries
 
-from ndx_multisubjects import SubjectsTable, NdxMultiSubjectsNWBFile, SelectSubjectsContainer
+from ndx_multisubjects import NdxMultiSubjectsNWBFile, SelectSubjectsContainer, SubjectsTable
 
 
 class TestSubjectsTableConstructor(TestCase):
@@ -127,17 +127,14 @@ class TestSubjectsTableSimpleRoundtrip(TestCase):
             weight="25g",
             individual_subj_link="relfilepath/subj_003.nwb",
         )
-        self.nwbfile.add_acquisition(subjects_table)
-
-        # subjects_table.parent = self.nwbfile
+        self.nwbfile.subjects_table = subjects_table
 
         with NWBHDF5IO(self.path, mode="w") as io:
             io.write(self.nwbfile)
 
         with NWBHDF5IO(self.path, mode="r") as io:
             read_nwbfile = io.read()
-            read_subjects_table = read_nwbfile.acquisition["SubjectsTable"]
-            self.assertContainerEqual(subjects_table, read_subjects_table)
+            self.assertContainerEqual(subjects_table, read_nwbfile.subjects_table)
 
 
 class TestSelectSubjectsContainer(TestCase):
@@ -267,7 +264,7 @@ class TestSelectSubjectsContainerSimpleRoundtrip(TestCase):
             individual_subj_link="relfilepath/subj_005.nwb",
         )
 
-        self.nwbfile.add_acquisition(subjects_table)
+        self.nwbfile.subjects_table = subjects_table
 
         subjects = DynamicTableRegion(
             name="subjects",
@@ -292,8 +289,6 @@ class TestSelectSubjectsContainerSimpleRoundtrip(TestCase):
         )
 
         module.add(subjects_container)
-
-        # subjects_table.parent = self.nwbfile
 
         with NWBHDF5IO(self.path, mode="w") as io:
             io.write(self.nwbfile)

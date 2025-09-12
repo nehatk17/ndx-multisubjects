@@ -77,14 +77,9 @@ subjects_table.add_row(
     weight="25g",
     individual_subj_link="relfilepath/subj_005.nwb"
 )
-```
 
-Add the `SubjectsTable` object to the NWB file with `nwbfile.add_acquisition(subjects_table)`. This adds the subjects
-table to the `acquisition` group of the NWB file. In the future, this will be changed so that the table can be added
-into the `general` group of the NWB file.
-
-```python
-nwbfile.add_acquisition(subjects_table)
+# Add the SubjectsTable to the NWB file
+nwbfile.subjects_table = subjects_table
 ```
 
 To add data that is specific to a selection of the subjects (fewer than the total number of subjects), use a
@@ -137,7 +132,7 @@ io = NWBHDF5IO("test_multi_subjects.nwb", "r")
 read_nwbfile = io.read()
 
 # Get the SubjectsTable in this NWB file
-read_subjects_table = read_nwbfile.get_acquisition("SubjectsTable")
+read_subjects_table = read_nwbfile.subjects_table
 
 # Get the SelectedSubjectsContainer
 read_selected_subjects_container = read_nwbfile.processing["behavior"]["selected_subjects_container_subjects_001_and_003"]
